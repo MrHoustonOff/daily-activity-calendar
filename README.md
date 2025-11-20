@@ -7,7 +7,7 @@ Do you keep all your notes in one massive folder, making it hard to track your d
 
 The **Daily Notes Viewer** is the solution: a native, interactive calendar that brings a new level of awareness to your knowledge system. It visualizes the pulse of your vault by instantly showing which notes were **Created** or **Updated** on any specific day, transforming your daily notes into a powerful command center.
 
-<div align="center"><img width="832" height="1107" alt="image" src="https://github.com/user-attachments/assets/74c0cf47-5b37-4dfd-95fb-d6943c93ee01" /></div>
+<div align="center"><img width="400" alt="image" src="https://github.com/user-attachments/assets/74c0cf47-5b37-4dfd-95fb-d6943c93ee01" /></div>
 
 ## Key Features
 
@@ -18,14 +18,14 @@ The plugin transforms your notes into a responsive, interactive calendar integra
 The core power lies in the Color Coding System: right-click any file in the activity list to assign a visual marker, instantly turning your log into a customizable prioritization tool.
 
 Customization: Easily define your own set of hex colors in the settings menu. Crucially, these colors are smart—they persist even when you rename or move files.
-<div align="center"><img width="493" height="453" alt="image" src="https://github.com/user-attachments/assets/2185bdd4-cae8-41f8-85e4-de738b2c906c" /></div>
+<div align="center"><img width="200" alt="image" src="https://github.com/user-attachments/assets/2185bdd4-cae8-41f8-85e4-de738b2c906c" /></div>
 
 ### Customization & Localization
 * **Custom Palette:** Define your own set of hex colors in the settings tab.
 * **Language Support:** Fully localized in **English** and **Russian**.
 * **Language Override:** You can force the plugin language (e.g., use Russian interface even if Obsidian is set to English).
 * **Reset Option:** "Danger Zone" button to restore default settings instantly.
-<div align="center"><img width="1199" height="813" alt="image" src="https://github.com/user-attachments/assets/f21e6ee5-f06a-4ddc-82ea-1b7583b9172c" /></div>
+<div align="center"><img width="400" alt="image" src="https://github.com/user-attachments/assets/f21e6ee5-f06a-4ddc-82ea-1b7583b9172c" /></div>
 
 ---
 
