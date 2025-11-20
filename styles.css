@@ -307,7 +307,6 @@ details[open] .daily-notes-section-header::before {
     text-overflow: ellipsis;
     white-space: nowrap;
     flex: 1;
-    /* FIX: Убран уменьшенный шрифт, теперь он стандартный (1em) */
     font-size: 1em; 
 }
 
@@ -331,5 +330,27 @@ details[open] .daily-notes-section-header::before {
 
 .daily-notes-color-border {
     padding-left: 5px;
-    /* Цвет и бордер будут задаваться через CSS-переменные или setProperty */
+}
+
+.daily-notes-item.has-color {
+    border-left: 3px solid var(--dn-note-color);
+    padding-left: 5px;
+}
+
+.daily-notes-item.has-color .daily-notes-item-icon {
+    color: var(--dn-note-color);
+}
+
+.daily-notes-item.has-color {
+    border-left: 3px solid var(--dn-note-color);
+    padding-left: 5px;
+}
+
+.daily-notes-item.has-color .daily-notes-item-icon {
+    color: var(--dn-note-color);
+}
+
+.daily-notes-menu-icon-color {
+    color: var(--dn-menu-icon-color) !important; 
+    opacity: 1 !important;
 }

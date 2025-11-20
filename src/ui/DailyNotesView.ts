@@ -6,12 +6,18 @@ import { t, getEffectiveLocale } from '../i18n/locales';
 
 export const VIEW_TYPE_DAILY_NOTES = 'daily-notes-view';
 
-interface MenuItemWithIcon extends MenuItem {
+/**
+ * Extends the standard MenuItem interface to include the 'iconEl' property.
+ * This allows for type-safe manipulation of menu icons (e.g., coloring) 
+ * without resorting to 'any', satisfying strict linter rules.
+ */
+interface InternalMenuItem extends MenuItem {
     iconEl: HTMLElement;
 }
+
 /**
- * The core View component.
- * Renders the interactive Calendar and the list of files (Created/Updated).
+ * The core View component responsible for rendering the interface.
+ * Contains the Flatpickr calendar and the filtered lists of created/updated notes.
  */
 export class DailyNotesView extends ItemView {
     private plugin: DailyNotesPlugin;
@@ -33,9 +39,11 @@ export class DailyNotesView extends ItemView {
 
     /**
      * Lifecycle method called when the view is opened.
-     * Sets up the DOM structure, initializes the calendar, and subscribes to events.
+     * Initializes the DOM structure, calendar, and event listeners.
+     * Returns a Promise to satisfy the parent class signature.
      */
     onOpen() {
+        // Return a Promise to satisfy ItemView.onOpen signature while keeping logic synchronous-like
         return Promise.resolve().then(() => {
             const container = this.containerEl.children[1];
             container.empty();
@@ -52,7 +60,8 @@ export class DailyNotesView extends ItemView {
     }
 
     /**
-     * Cleanup when view is closed.
+     * Lifecycle method called when the view is closed.
+     * Cleans up the Flatpickr instance to prevent memory leaks.
      */
     onClose() {
         if (this.fcal) this.fcal.destroy();
@@ -60,7 +69,7 @@ export class DailyNotesView extends ItemView {
     }
 
     /**
-     * Renders the top header with the plugin title and Refresh button.
+     * Renders the top header bar with the title and refresh button.
      */
     private renderHeader(container: HTMLElement) {
         const headerEl = container.createEl('div', { cls: 'daily-notes-header' });
@@ -70,13 +79,13 @@ export class DailyNotesView extends ItemView {
         setIcon(refreshBtn, 'refresh-cw');
         refreshBtn.setAttribute('aria-label', t('refreshTooltip'));
         refreshBtn.onclick = () => {
-            if (this.fcal) this.fcal.setDate(new Date(), true); // Reset to Today
+            if (this.fcal) this.fcal.setDate(new Date(), true);
         };
     }
 
     /**
-     * Initializes the Flatpickr calendar instance.
-     * Configures locale based on settings (RU vs EN).
+     * Initializes the Flatpickr calendar widget.
+     * Configures localization based on the plugin settings (e.g., Monday start for RU).
      */
     private initCalendar() {
         const localeCode = getEffectiveLocale();
@@ -87,7 +96,6 @@ export class DailyNotesView extends ItemView {
             dateFormat: 'Y-m-d',
             monthSelectorType: 'static',
             locale: {
-                // Set Monday (1) as start of week for Russian, Sunday (0) for English
                 firstDayOfWeek: localeCode === 'ru' ? 1 : 0
             },
             onChange: (selectedDates) => {
@@ -100,21 +108,20 @@ export class DailyNotesView extends ItemView {
     }
 
     /**
-     * Registers Obsidian Vault events to keep the UI in sync with file changes.
+     * Registers event listeners to sync the UI with Vault changes.
      */
     private registerEvents() {
-        // Update lists on any file operation
         this.registerEvent(this.app.vault.on('create', () => this.refreshLists()));
         this.registerEvent(this.app.vault.on('modify', () => this.refreshLists()));
         this.registerEvent(this.app.vault.on('delete', () => this.refreshLists()));
         this.registerEvent(this.app.vault.on('rename', () => this.refreshLists()));
         
-        // Highlight the active file when tab changes
+        // Highlight active file when switching tabs
         this.registerEvent(this.app.workspace.on('file-open', () => this.refreshLists()));
     }
 
     /**
-     * Main Logic: Filters files by date and renders the 'Created' and 'Updated' sections.
+     * Scans the vault for files matching the selected date and updates the lists.
      */
     private refreshLists() {
         this.listsContainer.empty();
@@ -124,7 +131,6 @@ export class DailyNotesView extends ItemView {
         const updatedFiles: TFile[] = [];
         const allFiles = this.app.vault.getMarkdownFiles();
 
-        // Filter files O(N)
         for (const file of allFiles) {
             const ctime = moment(file.stat.ctime);
             const mtime = moment(file.stat.mtime);
@@ -136,7 +142,7 @@ export class DailyNotesView extends ItemView {
             }
         }
 
-        // Sort by time (Newest first)
+        // Sort: Newest first
         createdFiles.sort((a, b) => b.stat.ctime - a.stat.ctime);
         updatedFiles.sort((a, b) => b.stat.mtime - a.stat.mtime);
 
@@ -145,11 +151,11 @@ export class DailyNotesView extends ItemView {
     }
 
     /**
-     * Renders a collapsible section (details/summary) for a list of files.
+     * Renders a collapsible section for a specific list of files.
      */
     private renderSection(title: string, files: TFile[], _type: 'created' | 'updated') {
         const details = this.listsContainer.createEl('details', { cls: 'daily-notes-section' });
-        details.open = true; // Default to expanded
+        details.open = true;
 
         const summary = details.createEl('summary', { cls: 'daily-notes-section-header' });
         summary.createSpan({ text: `${title} (${files.length})` });
@@ -167,46 +173,45 @@ export class DailyNotesView extends ItemView {
     }
 
     /**
-     * Renders a single file item with icon, index, link, and context menu.
+     * Renders a single file item.
+     * Handles active state, color indicators, file opening, and context menu.
      */
     private renderFileItem(container: HTMLElement, file: TFile, index: number) {
         const item = container.createEl('div', { cls: 'daily-notes-item' });
         
-        // 1. Highlight if active
+        // 1. Check if file is active
         const activeFile = this.app.workspace.getActiveFile();
         if (activeFile && activeFile.path === file.path) {
             item.addClass('is-active');
         }
         
-        // 2. Retrieve custom color
+        // 2. Apply Custom Color
         const noteColor = this.plugin.dataManager.getColor(file.path);
+
+        if (noteColor) {
+            // Use CSS class + CSS Variable to satisfy linter rules against direct styling
+            item.addClass('has-color');
+            item.style.setProperty('--dn-note-color', noteColor);
+        }
 
         // 3. Index
         item.createSpan({ text: `${index}.`, cls: 'daily-notes-item-index' });
 
-        // 4. Icon with Color Logic
+        // 4. Icon
         const iconContainer = item.createSpan({ cls: 'daily-notes-item-icon' });
         setIcon(iconContainer, 'file-text');
 
-        if (noteColor) {
-            iconContainer.style.setProperty('color', noteColor);
-            
-            item.addClass('daily-notes-color-border');
-            item.style.setProperty('border-left', `3px solid ${noteColor}`);
-        } else {
-            item.style.setProperty('border-left', '3px solid transparent');
-        }
-
-        // 5. File Link
+        // 5. Link
         const link = item.createEl('a', { 
             text: file.basename, 
             cls: 'daily-notes-item-link',
             href: '#' 
         });
 
-        link.addEventListener('click', (e) => {
+        // Handle click with async/await to ensure errors are caught
+        link.addEventListener('click', async (e) => {
             e.preventDefault();
-            this.app.workspace.openLinkText(file.path, '', false);
+            await this.app.workspace.openLinkText(file.path, '', false);
         });
 
         // 6. Context Menu (Right Click)
@@ -214,12 +219,10 @@ export class DailyNotesView extends ItemView {
             event.preventDefault();
             const menu = new Menu();
 
-            // Header
             menu.addItem((item) => {
                 item.setTitle(t('ctxColorLabel')).setIsLabel(true);
             });
 
-            // Generate Color Options from Settings Palette
             this.plugin.settings.palette.forEach((color) => {
                 menu.addItem((menuItem) => {
                     menuItem
@@ -230,15 +233,18 @@ export class DailyNotesView extends ItemView {
                             this.refreshLists();
                         });
                     
-                    // Hack to colorize the menu icon
-                    const iconEl = (menuItem as MenuItemWithIcon).iconEl;
-                    if (iconEl) iconEl.style.setProperty('color', color);
+                    // Use custom interface to safely access iconEl
+                    const iconEl = (menuItem as InternalMenuItem).iconEl;
+                    if (iconEl) {
+                        // Apply color via CSS class and variable
+                        iconEl.addClass('daily-notes-menu-icon-color');
+                        iconEl.style.setProperty('--dn-menu-icon-color', color);
+                    }
                 });
             });
 
             menu.addSeparator();
 
-            // Reset Option
             menu.addItem((menuItem) => {
                 menuItem
                     .setTitle(t('ctxResetColor'))

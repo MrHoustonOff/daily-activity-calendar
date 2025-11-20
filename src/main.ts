@@ -67,7 +67,7 @@ export default class DailyNotesPlugin extends Plugin {
      * Called when the plugin is disabled.
      * Cleanup is handled automatically by Obsidian for registered views and events.
      */
-    async onunload() {
+    onunload() {
         // No specific manual cleanup required.
     }
 
