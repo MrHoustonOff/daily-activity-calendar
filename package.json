@@ -1,5 +1,5 @@
 {
-  "name": "obsidian-daily-notes-viewer",
+  "name": "daily-activity-calendar",
   "version": "1.0.0",
   "description": "A better way to view daily notes activity",
   "main": "main.js",

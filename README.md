@@ -1,11 +1,11 @@
-# Daily Notes Viewer: Your Obsidian Activity Tracker
+# Daily Activity Calendar: Your Obsidian Activity Tracker
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
 
 Do you keep all your notes in one massive folder, making it hard to track your daily working progress? Is the graph view too abstract, and the File Explorer not intuitive enough for tracking activity?
 
-The **Daily Notes Viewer** is the solution: a native, interactive calendar that brings a new level of awareness to your knowledge system. It visualizes the pulse of your vault by instantly showing which notes were **Created** or **Updated** on any specific day, transforming your daily notes into a powerful command center.
+The **Daily Activity Calendar** is the solution: a native, interactive calendar that brings a new level of awareness to your knowledge system. It visualizes the pulse of your vault by instantly showing which notes were **Created** or **Updated** on any specific day, transforming your daily notes into a powerful command center.
 
 <div align="center"><img width="400" alt="image" src="https://github.com/user-attachments/assets/74c0cf47-5b37-4dfd-95fb-d6943c93ee01" /></div>
 
@@ -34,11 +34,11 @@ Customization: Easily define your own set of hex colors in the settings menu. Cr
 ### Method 1: From Community Plugins (Coming Soon... i hope)
 1.  Open **Settings** > **Community Plugins** in Obsidian.
 2.  Turn on **Restricted Mode**.
-3.  Click **Browse** and search for `Daily Notes Viewer`.
+3.  Click **Browse** and search for `Daily Activity Calendar`.
 4.  Click **Install** and then **Enable**.
 
 ### Method 2: Manual Installation
-1.  Download the latest release (`main.js`, `manifest.json`, `styles.css`) from the [Releases](https://github.com/MrHoustonOff/obsidian-daily-notes-viewer/releases) page.
+1.  Download the latest release (`main.js`, `manifest.json`, `styles.css`) from the [Releases](https://github.com/MrHoustonOff/daily-activity-calendar/releases) page.
 2.  Navigate to your vault folder: `.obsidian/plugins/`.
 3.  Create a new folder named `daily-notes-viewer`.
 4.  Paste the downloaded files into this folder.
@@ -52,7 +52,7 @@ Customization: Easily define your own set of hex colors in the settings menu. Cr
 2.  **Select a Date:** Click any day on the calendar to view the activity for that specific day.
 3.  **Open a Note:** Click any file in the list to open it in the active workspace.
 4.  **Color a Note:** Right-click a file in the list -> Select a color circle.
-5.  **Manage Colors:** Go to **Settings** -> **Daily Notes Viewer** to add, remove, or edit your color palette.
+5.  **Manage Colors:** Go to **Settings** -> **Daily Activity Calendar** to add, remove, or edit your color palette.
 
 ---
 
@@ -62,7 +62,7 @@ If you want to contribute or build the plugin from source:
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/MrHoustonOff/obsidian-daily-notes-viewer.git
+    git clone https://github.com/MrHoustonOff/daily-activity-calendar.git
     ```
 
 2.  **Install dependencies:**

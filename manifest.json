@@ -1,6 +1,6 @@
 {
-	"id": "daily-notes-viewer",
-	"name": "Daily Notes Viewer",
+	"id": "daily-activity-calendar",
+	"name": "Daily Activity Calendar",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
 	"description": "View created and updated notes for any specific date via a calendar interface.",

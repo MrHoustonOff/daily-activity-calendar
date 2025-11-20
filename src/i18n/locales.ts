@@ -6,7 +6,7 @@ import { moment } from 'obsidian';
  */
 const en = {
     // Main View Headers & Tooltips
-    viewHeader: 'Daily Notes',
+    viewHeader: 'Daily Activity',
     refreshTooltip: 'Refresh to today',
     createdToday: 'Created Today',
     updatedToday: 'Updated Today',
@@ -17,7 +17,7 @@ const en = {
     ctxResetColor: 'Reset Color',
     
     // Settings: Header & Palette Section
-    settingsHeader: 'Daily Notes Viewer Settings',
+    settingsHeader: 'Daily Activity Settings',
     paletteHeader: 'Color Palette',
     paletteDesc: 'Define colors available in the right-click context menu.',
     colorPrefix: 'Color',
@@ -47,7 +47,7 @@ const en = {
  * Russian translation dictionary.
  */
 const ru: typeof en = {
-    viewHeader: 'Ежедневные заметки',
+    viewHeader: 'Активность заметок',
     refreshTooltip: 'Вернуться к сегодня',
     createdToday: 'Создано сегодня',
     updatedToday: 'Изменено сегодня',
@@ -56,7 +56,7 @@ const ru: typeof en = {
     ctxColorLabel: 'Цветовая метка',
     ctxResetColor: 'Сбросить цвет',
     
-    settingsHeader: 'Настройки Daily Notes Viewer',
+    settingsHeader: 'Настройки Daily Activity Calendar',
     paletteHeader: 'Палитра цветов',
     paletteDesc: 'Настройте цвета, доступные в контекстном меню (ПКМ по заметке).',
     colorPrefix: 'Цвет',
