@@ -1,7 +1,7 @@
 import { Plugin, WorkspaceLeaf } from 'obsidian';
 import { DataManager } from './data/DataManager';
 import { DailyNotesView, VIEW_TYPE_DAILY_NOTES } from './ui/DailyNotesView';
-import { DailyNotesSettingTab } from './settings/SettingsTab'; // <--- Импорт
+import { DailyNotesSettingTab } from './settings/SettingsTab';
 
 export interface DailyNotesSettings {
     palette: string[];
@@ -9,12 +9,12 @@ export interface DailyNotesSettings {
 
 export const DEFAULT_SETTINGS: DailyNotesSettings = {
     palette: [
-        '#e43d3d', 
-        '#e4a83d', 
-        '#3de475', 
-        '#3d82e4', 
-        '#8a3de4', 
-        '#e43dce', 
+        '#e43d3d',
+        '#e4a83d',
+        '#3de475',
+        '#3d82e4',
+        '#8a3de4',
+        '#e43dce',
     ]
 }
 
@@ -23,8 +23,7 @@ export default class DailyNotesPlugin extends Plugin {
     public settings: DailyNotesSettings;
 
     async onload() {
-        console.log('Loading Daily Notes Viewer...');
-
+        // Clean start
         await this.loadSettings();
 
         this.dataManager = new DataManager(this);
@@ -40,12 +39,11 @@ export default class DailyNotesPlugin extends Plugin {
             this.activateView();
         });
 
-        // --- РЕГИСТРАЦИЯ ВКЛАДКИ НАСТРОЕК ---
         this.addSettingTab(new DailyNotesSettingTab(this.app, this));
     }
 
     async onunload() {
-        console.log('Unloading Daily Notes Viewer...');
+        // Silent unload
     }
 
     async loadSettings() {
