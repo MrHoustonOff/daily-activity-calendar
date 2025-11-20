@@ -7,7 +7,7 @@ export interface DailyNotesSettings {
     palette: string[];
 }
 
-const DEFAULT_SETTINGS: DailyNotesSettings = {
+export const DEFAULT_SETTINGS: DailyNotesSettings = {
     palette: [
         '#e43d3d', 
         '#e4a83d', 
