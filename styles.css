@@ -1,0 +1,21 @@
+/* Container fixes */
+.daily-notes-view-container {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.daily-notes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Calendar styling overrides will go here later */
+.daily-notes-calendar-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
