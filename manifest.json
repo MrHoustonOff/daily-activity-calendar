@@ -1,0 +1,10 @@
+{
+	"id": "daily-notes-viewer-remastered",
+	"name": "Daily Notes Viewer",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "View created and updated notes for any specific date via a calendar interface.",
+	"author": "MrHouston",
+	"authorUrl": "https://github.com/MrHoustonOff",
+	"isDesktopOnly": false
+}
