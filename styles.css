@@ -51,6 +51,7 @@
     border-radius: 8px !important;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
     padding: 15px !important;
+    margin-bottom: 50px;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
@@ -226,4 +227,105 @@ span.flatpickr-weekday {
     letter-spacing: 1px;
     padding-bottom: 5px;
     border-bottom: 1px solid var(--background-modifier-border);
+}
+
+/* ==========================================================================
+   5. LISTS & DROPDOWNS
+   ========================================================================== */
+.daily-notes-lists-container {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.daily-notes-section {
+    margin-bottom: 15px;
+}
+
+.daily-notes-section-header {
+    font-size: 0.9em;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    padding: 5px 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s;
+}
+
+.daily-notes-section-header::-webkit-details-marker {
+    display: none;
+}
+.daily-notes-section-header::before {
+    content: '▶';
+    font-size: 0.7em;
+    margin-right: 8px;
+    display: inline-block;
+    transition: transform 0.2s;
+}
+details[open] .daily-notes-section-header::before {
+    transform: rotate(90deg);
+}
+
+.daily-notes-section-header:hover {
+    color: var(--text-normal);
+}
+
+.daily-notes-file-list {
+    padding-left: 10px; 
+    margin-top: 5px;
+}
+
+.daily-notes-empty {
+    color: var(--text-faint);
+    font-style: italic;
+    font-size: 0.9em;
+    padding-left: 15px;
+}
+
+.daily-notes-item {
+    display: flex;
+    align-items: center;
+    padding: 4px 6px;
+    border-radius: 4px;
+    transition: background-color 0.1s;
+}
+.daily-notes-item:hover {
+    background-color: var(--background-modifier-hover);
+}
+
+.daily-notes-item-index {
+    color: var(--text-faint);
+    font-family: var(--font-monospace);
+    font-size: 0.85em;
+    width: 25px; 
+    min-width: 25px;
+    text-align: right;
+    margin-right: 10px;
+}
+
+.daily-notes-item-icon {
+    color: var(--text-muted);
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+}
+.daily-notes-item-icon svg {
+    width: 14px;
+    height: 14px;
+}
+
+.daily-notes-item-link {
+    color: var(--text-normal);
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1; 
+}
+.daily-notes-item-link:hover {
+    text-decoration: underline;
+    color: var(--interactive-accent);
 }
