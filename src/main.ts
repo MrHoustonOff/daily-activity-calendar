@@ -1,21 +1,20 @@
 import { Plugin, WorkspaceLeaf } from 'obsidian';
 import { DataManager } from './data/DataManager';
 import { DailyNotesView, VIEW_TYPE_DAILY_NOTES } from './ui/DailyNotesView';
+import { DailyNotesSettingTab } from './settings/SettingsTab'; // <--- Импорт
 
-// 1. Определяем настройки плагина (Палитра)
 export interface DailyNotesSettings {
     palette: string[];
 }
 
 const DEFAULT_SETTINGS: DailyNotesSettings = {
-    // Дефолтные цвета (как в твоем оригинале + пара новых)
     palette: [
-        '#e43d3d', // Red
-        '#e4a83d', // Orange
-        '#3de475', // Green
-        '#3d82e4', // Blue
-        '#8a3de4', // Purple
-        '#e43dce', // Pink
+        '#e43d3d', 
+        '#e4a83d', 
+        '#3de475', 
+        '#3d82e4', 
+        '#8a3de4', 
+        '#e43dce', 
     ]
 }
 
@@ -26,24 +25,23 @@ export default class DailyNotesPlugin extends Plugin {
     async onload() {
         console.log('Loading Daily Notes Viewer...');
 
-        // 1. Загружаем настройки (палитру)
         await this.loadSettings();
 
-        // 2. Инициализируем менеджер данных (цвета заметок)
         this.dataManager = new DataManager(this);
         await this.dataManager.load();
         this.dataManager.registerEvents();
 
-        // 3. Регистрируем View
         this.registerView(
             VIEW_TYPE_DAILY_NOTES,
             (leaf) => new DailyNotesView(leaf, this)
         );
 
-        // 4. Иконка
         this.addRibbonIcon('calendar-days', 'Open Daily Notes', () => {
             this.activateView();
         });
+
+        // --- РЕГИСТРАЦИЯ ВКЛАДКИ НАСТРОЕК ---
+        this.addSettingTab(new DailyNotesSettingTab(this.app, this));
     }
 
     async onunload() {

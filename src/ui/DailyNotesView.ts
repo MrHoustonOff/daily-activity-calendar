@@ -165,8 +165,8 @@ export class DailyNotesView extends ItemView {
                             this.refreshLists();
                         });
                     
-                    // Хак: красим иконку в меню
-                    const iconEl = menuItem.iconEl;
+                    // Хак для TypeScript: приводим к any, чтобы достать iconEl
+                    const iconEl = (menuItem as any).iconEl as HTMLElement;
                     if (iconEl) iconEl.style.color = color;
                 });
             });
