@@ -9,20 +9,18 @@
     background-color: var(--background-secondary);
 }
 
-/* HEADER: Native Obsidian Look */
 .daily-notes-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-bottom: 8px;
     margin-bottom: 15px;
-    /* FIX: Native thin separator instead of thick dotted line */
     border-bottom: 1px solid var(--background-modifier-border);
 }
 
 .daily-notes-header h4 {
     margin: 0;
-    font-size: 0.8em; /* Smaller, cleaner font like native headers */
+    font-size: 0.8em;
     font-weight: 600;
     color: var(--text-muted);
     text-transform: uppercase;
@@ -36,7 +34,6 @@
 }
 .daily-notes-refresh:hover { opacity: 1; }
 
-/* Wrapper for spacing only */
 .daily-notes-calendar-container {
     background: transparent;
     padding: 0;
@@ -64,20 +61,18 @@
 }
 
 /* ==========================================================================
-   3. HEADER NAVIGATION: [<] MONTH YEAR [>]
+   3. HEADER NAVIGATION
    ========================================================================== */
 .flatpickr-months {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* FIX: Fixed height ensures vertical centering works perfectly */
     height: 40px; 
     margin-bottom: 10px;
     border-bottom: 1px solid var(--background-modifier-border);
 }
 
-/* Month & Year (Centered) */
 .flatpickr-current-month {
     position: static !important;
     width: auto !important;
@@ -93,7 +88,7 @@
     color: var(--text-normal);
     margin-right: 5px;
     font-size: 1.1em;
-    line-height: 1; /* Fix baseline alignment */
+    line-height: 1;
 }
 
 .flatpickr-current-month input.cur-year {
@@ -110,10 +105,8 @@
 }
 .numInputWrapper span { display: none; }
 
-/* ARROWS FIX: Bolder, Whiter, Perfectly Centered */
 .flatpickr-prev-month, .flatpickr-next-month {
     position: absolute !important;
-    /* TRICK: Top 0 + Bottom 0 + Margin Auto = Perfect Vertical Center */
     top: 0;
     bottom: 0;
     margin: auto;
@@ -131,13 +124,10 @@
 .flatpickr-prev-month { left: 0; }
 .flatpickr-next-month { right: 0; }
 
-/* SVG Styling */
 .flatpickr-prev-month svg, .flatpickr-next-month svg {
     width: 14px;
     height: 14px;
-    /* FIX: White color */
     fill: var(--text-normal);
-    /* FIX: Stroke makes it look "Bolder" */
     stroke: var(--text-normal);
     stroke-width: 2px; 
 }
@@ -166,7 +156,7 @@
 }
 span.flatpickr-weekday {
     color: var(--text-muted);
-    font-size: 0.75em; /* Slightly smaller weekdays */
+    font-size: 0.75em;
     text-align: center;
     font-weight: 600;
     text-transform: uppercase;
@@ -198,7 +188,6 @@ span.flatpickr-weekday {
     font-size: 0.9em;
 }
 
-/* States */
 .flatpickr-day:hover { background: var(--background-modifier-hover); }
 
 .flatpickr-day.today {
@@ -218,19 +207,8 @@ span.flatpickr-weekday {
     opacity: 0.5;
 }
 
-/* Lists Placeholder */
-.daily-notes-lists-container h5 {
-    margin-top: 0;
-    color: var(--text-muted);
-    font-size: 0.9em;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid var(--background-modifier-border);
-}
-
 /* ==========================================================================
-   5. LISTS & DROPDOWNS
+   5. LISTS & DROPDOWNS (UPDATED)
    ========================================================================== */
 .daily-notes-lists-container {
     flex: 1;
@@ -255,9 +233,7 @@ span.flatpickr-weekday {
     transition: color 0.2s;
 }
 
-.daily-notes-section-header::-webkit-details-marker {
-    display: none;
-}
+.daily-notes-section-header::-webkit-details-marker { display: none; }
 .daily-notes-section-header::before {
     content: '▶';
     font-size: 0.7em;
@@ -268,13 +244,10 @@ span.flatpickr-weekday {
 details[open] .daily-notes-section-header::before {
     transform: rotate(90deg);
 }
-
-.daily-notes-section-header:hover {
-    color: var(--text-normal);
-}
+.daily-notes-section-header:hover { color: var(--text-normal); }
 
 .daily-notes-file-list {
-    padding-left: 10px; 
+    padding-left: 10px;
     margin-top: 5px;
 }
 
@@ -285,22 +258,32 @@ details[open] .daily-notes-section-header::before {
     padding-left: 15px;
 }
 
+/* Элемент списка */
 .daily-notes-item {
     display: flex;
     align-items: center;
-    padding: 4px 6px;
+    padding: 6px 8px; /* Чуть больше пространства */
     border-radius: 4px;
     transition: background-color 0.1s;
+    margin-bottom: 2px;
 }
+
 .daily-notes-item:hover {
     background-color: var(--background-modifier-hover);
+}
+
+/* NEW: Активная заметка */
+.daily-notes-item.is-active {
+    background-color: var(--nav-item-background-active); /* Стандартный цвет выделения */
+    font-weight: 600;
+    color: var(--text-normal);
 }
 
 .daily-notes-item-index {
     color: var(--text-faint);
     font-family: var(--font-monospace);
-    font-size: 0.85em;
-    width: 25px; 
+    font-size: var(--font-ui-small); /* Используем системный small шрифт */
+    width: 25px;
     min-width: 25px;
     text-align: right;
     margin-right: 10px;
@@ -313,8 +296,8 @@ details[open] .daily-notes-section-header::before {
     align-items: center;
 }
 .daily-notes-item-icon svg {
-    width: 14px;
-    height: 14px;
+    width: 16px; /* Стандартный размер иконки */
+    height: 16px;
 }
 
 .daily-notes-item-link {
@@ -323,8 +306,11 @@ details[open] .daily-notes-section-header::before {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    flex: 1; 
+    flex: 1;
+    /* FIX: Убран уменьшенный шрифт, теперь он стандартный (1em) */
+    font-size: 1em; 
 }
+
 .daily-notes-item-link:hover {
     text-decoration: underline;
     color: var(--interactive-accent);
