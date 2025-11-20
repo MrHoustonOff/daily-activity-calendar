@@ -2,24 +2,45 @@ import { Plugin, WorkspaceLeaf } from 'obsidian';
 import { DataManager } from './data/DataManager';
 import { DailyNotesView, VIEW_TYPE_DAILY_NOTES } from './ui/DailyNotesView';
 
+// 1. Определяем настройки плагина (Палитра)
+export interface DailyNotesSettings {
+    palette: string[];
+}
+
+const DEFAULT_SETTINGS: DailyNotesSettings = {
+    // Дефолтные цвета (как в твоем оригинале + пара новых)
+    palette: [
+        '#e43d3d', // Red
+        '#e4a83d', // Orange
+        '#3de475', // Green
+        '#3d82e4', // Blue
+        '#8a3de4', // Purple
+        '#e43dce', // Pink
+    ]
+}
+
 export default class DailyNotesPlugin extends Plugin {
     public dataManager: DataManager;
+    public settings: DailyNotesSettings;
 
     async onload() {
         console.log('Loading Daily Notes Viewer...');
 
-        // 1. Initialize DataManager
+        // 1. Загружаем настройки (палитру)
+        await this.loadSettings();
+
+        // 2. Инициализируем менеджер данных (цвета заметок)
         this.dataManager = new DataManager(this);
         await this.dataManager.load();
         this.dataManager.registerEvents();
 
-        // 2. Register View
+        // 3. Регистрируем View
         this.registerView(
             VIEW_TYPE_DAILY_NOTES,
             (leaf) => new DailyNotesView(leaf, this)
         );
 
-        // 3. Add Ribbon Icon to open the view
+        // 4. Иконка
         this.addRibbonIcon('calendar-days', 'Open Daily Notes', () => {
             this.activateView();
         });
@@ -29,25 +50,25 @@ export default class DailyNotesPlugin extends Plugin {
         console.log('Unloading Daily Notes Viewer...');
     }
 
-    /**
-     * Opens the view in the right sidebar leaf.
-     */
+    async loadSettings() {
+        this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+    }
+
+    async saveSettings() {
+        await this.saveData(this.settings);
+    }
+
     async activateView() {
         const { workspace } = this.app;
         let leaf: WorkspaceLeaf | null = null;
         const leaves = workspace.getLeavesOfType(VIEW_TYPE_DAILY_NOTES);
 
         if (leaves.length > 0) {
-            // A leaf with our view already exists, use that
             leaf = leaves[0];
         } else {
-            // Our view could not be found in the workspace, create a new leaf
-            // in the right sidebar
             leaf = workspace.getRightLeaf(false);
             await leaf.setViewState({ type: VIEW_TYPE_DAILY_NOTES, active: true });
         }
-
-        // "Reveal" the leaf in case it is currently collapsed
         workspace.revealLeaf(leaf);
     }
 }
