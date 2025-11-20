@@ -67,7 +67,7 @@ If you want to contribute or build the plugin from source:
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/MrHoustonOff/obsidian-daily-notes-viewer.git](https://github.com/MrHoustonOff/obsidian-daily-notes-viewer.git)
+    git clone https://github.com/MrHoustonOff/obsidian-daily-notes-viewer.git
     ```
 
 2.  **Install dependencies:**
