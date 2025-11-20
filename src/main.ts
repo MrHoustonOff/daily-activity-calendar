@@ -2,6 +2,7 @@ import { Plugin, WorkspaceLeaf } from 'obsidian';
 import { DataManager } from './data/DataManager';
 import { DailyNotesView, VIEW_TYPE_DAILY_NOTES } from './ui/DailyNotesView';
 import { DailyNotesSettingTab } from './settings/SettingsTab';
+import { t } from './i18n/locales'
 
 export interface DailyNotesSettings {
     palette: string[];
@@ -35,7 +36,7 @@ export default class DailyNotesPlugin extends Plugin {
             (leaf) => new DailyNotesView(leaf, this)
         );
 
-        this.addRibbonIcon('calendar-days', 'Open Daily Notes', () => {
+        this.addRibbonIcon('calendar-days', t('ribbonTooltip'), () => { 
             this.activateView();
         });
 

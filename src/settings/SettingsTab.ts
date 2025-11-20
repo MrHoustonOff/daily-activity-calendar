@@ -1,5 +1,6 @@
 import { App, PluginSettingTab, Setting, setIcon, Notice } from 'obsidian';
-import DailyNotesPlugin, { DEFAULT_SETTINGS } from '../main'; // Импортируем дефолтные настройки
+import DailyNotesPlugin, { DEFAULT_SETTINGS } from '../main';
+import { t } from '../i18n/locales'; // <--- Импорт
 
 export class DailyNotesSettingTab extends PluginSettingTab {
     plugin: DailyNotesPlugin;
@@ -13,17 +14,17 @@ export class DailyNotesSettingTab extends PluginSettingTab {
         const { containerEl } = this;
         containerEl.empty();
 
-        containerEl.createEl('h2', { text: 'Daily Notes Viewer Settings' });
+        containerEl.createEl('h2', { text: t('settingsHeader') }); 
 
-        // --- Секция Палитры ---
-        containerEl.createEl('h3', { text: 'Color Palette' });
-        containerEl.createEl('p', { text: 'Define colors available in the right-click context menu.', cls: 'setting-item-description' });
+        // --- Palette Section ---
+        containerEl.createEl('h3', { text: t('paletteHeader') }); 
+        containerEl.createEl('p', { text: t('paletteDesc'), cls: 'setting-item-description' }); 
 
         this.plugin.settings.palette.forEach((color, index) => {
             const div = containerEl.createEl('div', { cls: 'setting-item' });
             
             const info = div.createEl('div', { cls: 'setting-item-info' });
-            info.createEl('div', { text: `Color #${index + 1}`, cls: 'setting-item-name' });
+            info.createEl('div', { text: `${t('colorPrefix')} #${index + 1}`, cls: 'setting-item-name' });  "Цвет #1"
 
             const controls = div.createEl('div', { cls: 'setting-item-control' });
 
@@ -61,12 +62,12 @@ export class DailyNotesSettingTab extends PluginSettingTab {
             };
         });
 
-        // Кнопка "Добавить цвет"
+        // Add New Color Button
         new Setting(containerEl)
-            .setName('Add New Color')
-            .setDesc('Add a new color slot to the palette.')
+            .setName(t('addColor')) 
+            .setDesc(t('addColorDesc')) 
             .addButton(button => button
-                .setButtonText('Add Color')
+                .setButtonText(t('btnAddColor')) 
                 .setCta()
                 .onClick(async () => {
                     this.plugin.settings.palette.push('#ffffff');
@@ -74,21 +75,20 @@ export class DailyNotesSettingTab extends PluginSettingTab {
                     this.display();
                 }));
 
-        containerEl.createEl('h3', { text: 'Danger Zone' });
+        // --- Danger Zone ---
+        containerEl.createEl('h3', { text: t('dangerZone') }); 
 
-        // Кнопка "Сбросить настройки"
         new Setting(containerEl)
-            .setName('Reset Palette to Defaults')
-            .setDesc('Restores the original color palette. This cannot be undone.')
+            .setName(t('resetPalette')) 
+            .setDesc(t('resetPaletteDesc')) 
             .addButton(button => button
-                .setButtonText('Reset Palette')
-                .setWarning() // Делает кнопку красной/предупреждающей
+                .setButtonText(t('btnReset')) 
+                .setWarning()
                 .onClick(async () => {
-                    // Копируем массив, чтобы не ссылаться на константу
                     this.plugin.settings.palette = [...DEFAULT_SETTINGS.palette];
                     await this.plugin.saveSettings();
-                    this.display(); // Перерисовываем
-                    new Notice('Color palette has been reset to defaults.');
+                    this.display();
+                    new Notice(t('noticeReset')); 
                 }));
     }
 }
