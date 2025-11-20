@@ -1,4 +1,4 @@
-import { ItemView, WorkspaceLeaf, setIcon, TFile, moment, Menu } from 'obsidian';
+import { ItemView, WorkspaceLeaf, setIcon, TFile, moment, Menu, MenuItem } from 'obsidian';
 import flatpickr from 'flatpickr';
 import { Instance as FlatpickrInstance } from 'flatpickr/dist/types/instance';
 import DailyNotesPlugin from '../main';
@@ -6,6 +6,9 @@ import { t, getEffectiveLocale } from '../i18n/locales';
 
 export const VIEW_TYPE_DAILY_NOTES = 'daily-notes-view';
 
+interface MenuItemWithIcon extends MenuItem {
+    iconEl: HTMLElement;
+}
 /**
  * The core View component.
  * Renders the interactive Calendar and the list of files (Created/Updated).
@@ -32,31 +35,28 @@ export class DailyNotesView extends ItemView {
      * Lifecycle method called when the view is opened.
      * Sets up the DOM structure, initializes the calendar, and subscribes to events.
      */
-    async onOpen() {
-        const container = this.containerEl.children[1];
-        container.empty();
-        container.addClass('daily-notes-view-container');
+    onOpen() {
+        return Promise.resolve().then(() => {
+            const container = this.containerEl.children[1];
+            container.empty();
+            container.addClass('daily-notes-view-container');
 
-        // 1. Render Header
-        this.renderHeader(container as HTMLElement);
-
-        // 2. Render Calendar Wrapper
-        this.calendarContainer = container.createEl('div', { cls: 'daily-notes-calendar-container' });
-        this.initCalendar();
-
-        // 3. Render Lists Wrapper
-        this.listsContainer = container.createEl('div', { cls: 'daily-notes-lists-container' });
-        
-        // Initial Data Load
-        this.refreshLists();
-        this.registerEvents();
+            this.renderHeader(container as HTMLElement);
+            this.calendarContainer = container.createEl('div', { cls: 'daily-notes-calendar-container' });
+            this.initCalendar();
+            this.listsContainer = container.createEl('div', { cls: 'daily-notes-lists-container' });
+            
+            this.refreshLists();
+            this.registerEvents();
+        });
     }
 
     /**
      * Cleanup when view is closed.
      */
-    async onClose() {
+    onClose() {
         if (this.fcal) this.fcal.destroy();
+        return Promise.resolve();
     }
 
     /**
@@ -147,7 +147,7 @@ export class DailyNotesView extends ItemView {
     /**
      * Renders a collapsible section (details/summary) for a list of files.
      */
-    private renderSection(title: string, files: TFile[], type: 'created' | 'updated') {
+    private renderSection(title: string, files: TFile[], _type: 'created' | 'updated') {
         const details = this.listsContainer.createEl('details', { cls: 'daily-notes-section' });
         details.open = true; // Default to expanded
 
@@ -189,11 +189,12 @@ export class DailyNotesView extends ItemView {
         setIcon(iconContainer, 'file-text');
 
         if (noteColor) {
-            iconContainer.style.color = noteColor;
-            item.style.borderLeft = `3px solid ${noteColor}`;
-            item.style.paddingLeft = '5px';
+            iconContainer.style.setProperty('color', noteColor);
+            
+            item.addClass('daily-notes-color-border');
+            item.style.setProperty('border-left', `3px solid ${noteColor}`);
         } else {
-            item.style.borderLeft = '3px solid transparent';
+            item.style.setProperty('border-left', '3px solid transparent');
         }
 
         // 5. File Link
@@ -230,8 +231,8 @@ export class DailyNotesView extends ItemView {
                         });
                     
                     // Hack to colorize the menu icon
-                    const iconEl = (menuItem as any).iconEl as HTMLElement;
-                    if (iconEl) iconEl.style.color = color;
+                    const iconEl = (menuItem as MenuItemWithIcon).iconEl;
+                    if (iconEl) iconEl.style.setProperty('color', color);
                 });
             });
 

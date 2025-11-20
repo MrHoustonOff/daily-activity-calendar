@@ -55,8 +55,8 @@ export default class DailyNotesPlugin extends Plugin {
         );
 
         // 5. Add Ribbon Icon
-        this.addRibbonIcon('calendar-days', t('ribbonTooltip'), () => {
-            this.activateView();
+        this.addRibbonIcon('calendar-days', t('ribbonTooltip'), async () => {
+            await this.activateView();
         });
 
         // 6. Add Settings Tab
