@@ -1,32 +1,33 @@
 {
   "name": "daily-activity-calendar",
   "version": "1.0.0",
-  "description": "A better way to view daily notes activity",
+  "description": "View created and updated notes via a calendar interface.",
   "main": "main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs",
     "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
-    "version": "node version-bump.mjs && git add manifest.json versions.json"
+    "version": "node version-bump.mjs && git add manifest.json versions.json",
+    "lint": "eslint src/**/*.ts"
   },
   "keywords": [
     "obsidian",
-    "plugin",
-    "daily-notes"
+    "plugin"
   ],
   "author": "MrHouston",
   "license": "MIT",
   "devDependencies": {
+    "@eslint/json": "^0.14.0",
     "@types/node": "^16.11.6",
-    "@typescript-eslint/eslint-plugin": "^5.29.0",
-    "@typescript-eslint/parser": "^5.29.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
     "builtin-modules": "3.3.0",
     "esbuild": "0.17.3",
-    "eslint": "^8.57.1",
-    "eslint-plugin-obsidianmd": "^0.1.9",
-    "eslint-plugin-unused-imports": "^4.3.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-obsidianmd": "0.1.9",
+    "eslint-plugin-unused-imports": "^3.0.0",
     "obsidian": "latest",
     "tslib": "2.4.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.0.0"
   },
   "dependencies": {
     "flatpickr": "^4.6.13"

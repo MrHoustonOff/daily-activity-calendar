@@ -43,7 +43,6 @@ export class DailyNotesView extends ItemView {
      * Returns a Promise to satisfy the parent class signature.
      */
     onOpen() {
-        // Return a Promise to satisfy ItemView.onOpen signature while keeping logic synchronous-like
         return Promise.resolve().then(() => {
             const container = this.containerEl.children[1];
             container.empty();
@@ -189,7 +188,6 @@ export class DailyNotesView extends ItemView {
         const noteColor = this.plugin.dataManager.getColor(file.path);
 
         if (noteColor) {
-            // Use CSS class + CSS Variable to satisfy linter rules against direct styling
             item.addClass('has-color');
             item.style.setProperty('--dn-note-color', noteColor);
         }
@@ -209,9 +207,9 @@ export class DailyNotesView extends ItemView {
         });
 
         // Handle click with async/await to ensure errors are caught
-        link.addEventListener('click', async (e) => {
+        link.addEventListener('click', (e) => {
             e.preventDefault();
-            await this.app.workspace.openLinkText(file.path, '', false);
+            void this.app.workspace.openLinkText(file.path, '', false);
         });
 
         // 6. Context Menu (Right Click)
@@ -228,9 +226,11 @@ export class DailyNotesView extends ItemView {
                     menuItem
                         .setTitle(color)
                         .setIcon('circle')
-                        .onClick(async () => {
-                            await this.plugin.dataManager.setColor(file.path, color);
-                            this.refreshLists();
+                        .onClick(() => {
+                            void (async () => {
+                                await this.plugin.dataManager.setColor(file.path, color);
+                                this.refreshLists();
+                            })();
                         });
                     
                     // Use custom interface to safely access iconEl
@@ -249,9 +249,11 @@ export class DailyNotesView extends ItemView {
                 menuItem
                     .setTitle(t('ctxResetColor'))
                     .setIcon('x-circle')
-                    .onClick(async () => {
-                        await this.plugin.dataManager.removeColor(file.path);
-                        this.refreshLists();
+                    .onClick(() => {
+                        void (async () => {
+                            await this.plugin.dataManager.removeColor(file.path);
+                            this.refreshLists();
+                        })();
                     });
             });
 

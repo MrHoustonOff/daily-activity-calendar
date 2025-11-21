@@ -3,12 +3,14 @@
   "parser": "@typescript-eslint/parser",
   "plugins": [
     "@typescript-eslint",
-    "unused-imports"
+    "unused-imports",
+    "obsidianmd"
   ],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:obsidianmd/recommended"
   ],
   "rules": {
     "no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
@@ -25,6 +27,9 @@
         "argsIgnorePattern": "^_"
       }
     ],
-    "@typescript-eslint/no-non-null-assertion": "off"
+    "@typescript-eslint/no-non-null-assertion": "off",
+    
+    // Специфичные правила Obsidian (если recommended их пропустит)
+    "obsidianmd/no-static-styles-assignment": "error"
   }
 }

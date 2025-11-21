@@ -55,8 +55,8 @@ export default class DailyNotesPlugin extends Plugin {
         );
 
         // 5. Add Ribbon Icon
-        this.addRibbonIcon('calendar-days', t('ribbonTooltip'), async () => {
-            await this.activateView();
+        this.addRibbonIcon('calendar-days', t('ribbonTooltip'), () => {
+            void this.activateView();
         });
 
         // 6. Add Settings Tab
@@ -105,6 +105,6 @@ export default class DailyNotesPlugin extends Plugin {
             await leaf.setViewState({ type: VIEW_TYPE_DAILY_NOTES, active: true });
         }
         
-        if (leaf) workspace.revealLeaf(leaf);
+        if (leaf) await workspace.revealLeaf(leaf);
     }
 }
