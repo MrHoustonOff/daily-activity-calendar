@@ -35,7 +35,7 @@ export class DailyNotesView extends ItemView {
 
     getViewType() { return VIEW_TYPE_DAILY_NOTES; }
     getDisplayText() { return t('viewHeader'); }
-    getIcon() { return 'calendar-days'; }
+    getIcon() { return 'calendar-clock'; }
 
     /**
      * Lifecycle method called when the view is opened.

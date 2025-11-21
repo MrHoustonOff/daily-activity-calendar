@@ -33,7 +33,7 @@ const en = {
     noticeReset: 'Color palette has been reset to defaults.',
 
     // Ribbon Icon
-    ribbonTooltip: 'Open Daily Notes',
+    ribbonTooltip: 'Open Daily Activity',
 
     // Settings: Language Overrides
     languageHeader: 'Interface Language',
@@ -70,7 +70,7 @@ const ru: typeof en = {
     btnReset: 'Сбросить',
     noticeReset: 'Палитра цветов сброшена к настройкам по умолчанию.',
 
-    ribbonTooltip: 'Открыть ежедневные заметки',
+    ribbonTooltip: 'Открыть дневную активность',
 
     languageHeader: 'Язык интерфейса',
     languageDesc: 'Принудительно установить язык плагина, игнорируя настройки Obsidian.',
