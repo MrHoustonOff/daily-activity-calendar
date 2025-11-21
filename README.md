@@ -1,11 +1,22 @@
+<div align="center">
+
 # Daily Activity Calendar: Your Obsidian Activity Tracker
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
 
-Do you keep all your notes in one massive folder, making it hard to track your daily working progress? Is the graph view too abstract, and the File Explorer not intuitive enough for tracking activity?
+</div>
+
+Do you keep all your notes in one massive folder, making it hard to track your daily working progress? Is the graph view difficult, and the File Explorer not intuitive enough for tracking activity?
 
 The **Daily Activity Calendar** is the solution: a native, interactive calendar that brings a new level of awareness to your knowledge system. It visualizes the pulse of your vault by instantly showing which notes were **Created** or **Updated** on any specific day, transforming your daily notes into a powerful command center.
+
+---
+
+
+
+
+
 
 <div align="center"><img width="400" alt="image" src="https://github.com/user-attachments/assets/74c0cf47-5b37-4dfd-95fb-d6943c93ee01" /></div>
 
